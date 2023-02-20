@@ -9,14 +9,14 @@ pipeline {
                  sh script: 'mvn clean package'
              }
         }
-        stage('Sonarqube code quality check') {
+    stage('Sonarqube code quality check') {
              steps {
                     withSonarQubeEnv(installationName :'sonar-9', credentialsId : 'jenkins-maven-poc') {
                     sh 'mvn sonar:sonar'
                          }
-                   }
-                }
-        stage("Quality Gate") {
+                       }
+    }
+    stage("Quality Gate") {
             steps {
               timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
